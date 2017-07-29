@@ -1,13 +1,15 @@
-let box = document.createElement('div');
+let box = document.getElementById('canvas');
+var ctx = box.getContext('2d');
+
 let boxWidth = 300;
 let boxHeight = 300;
-let quantity = 300; //number of dots
+let quantity = 3; //number of dots
 let duration = 0.001;  //duration (in seconds)
 
 box.className = 'box';
 
-box.style.width = boxWidth + 'px';
-box.style.height = boxHeight + 'px';
+ctx.canvas.width = boxWidth;
+ctx.canvas.height = boxHeight;
 
 document.body.appendChild(box);
 
@@ -28,12 +30,9 @@ function randomCoords() {
 }
 
 function createDomElements(coords) {
-    let pointEl = document.createElement('div');
-    pointEl.className = 'point';
-    pointEl.style.top = coords.y + 'px';
-    pointEl.style.left = coords.x + 'px';
-
-    box.appendChild(pointEl);
+    ctx.fillStyle = 'green';
+    console.log(coords);
+    ctx.fillRect(coords.y, coords.x, 5, 5);
 }
 
 // add the points to the page
@@ -45,19 +44,15 @@ for (var i = 0; i < points.length; i++) {
     createDomElements(coords);
 }
 
-var tl = new TimelineMax({repeat:10, yoyo:true});       
+// create bezier 
 
+// move to the first point
+ctx.moveTo(points[0].x, points[0].y);
 
-//we can remove the first point on the path because the position is already there and we want to draw the Bezier from there through the other points
-//path.shift();
-
-for (i = 0; i < quantity; i++) {
-    //create a new dot, add the .dot class, set the position, and add it to the body.	
-    let dot = document.createElement('div');
-    dot.className = 'dot';
-    box.appendChild(dot); 
-    //create a tween for the dot that travels the full path of the bezier  
-    var t = TweenMax.to(dot, duration, {bezier:points, paused:true, ease:Linear.easeNone});
-    //tween the progress of the tween so that each dot only travels a decreasing percentage of the full path
-    TweenLite.to(t, duration - (duration * i/quantity), {progress:1- i/quantity, ease:Linear.easeNone, delay:i*0.3});
+for (i = 1; i < points.length - 2; i ++) {
+    var xc = (points[i].x + points[i + 1].x) / 2;
+    var yc = (points[i].y + points[i + 1].y) / 2;
+    ctx.quadraticCurveTo(points[i].x, points[i].y, xc, yc);
 }
+// curve through the last two points
+ctx.quadraticCurveTo(points[i].x, points[i].y, points[i+1].x,points[i+1].y);
