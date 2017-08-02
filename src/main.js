@@ -14,7 +14,7 @@ let curveComplexity = 20; // number of points to draw curve from
 
 // Set up the canvas
 let box = document.getElementById('canvas');
-var ctx = box.getContext('2d');
+var ctx = box.getctx('2d');
 box.className = 'box';
 ctx.canvas.width = boxWidth;
 ctx.canvas.height = boxHeight;
@@ -74,3 +74,28 @@ ctx.quadraticCurveTo(points[i].x, points[i].y, points[i+1].x,points[i+1].y);
 ctx.stroke();
 
 
+then = Date.now();
+setInterval(main, 1);
+
+var cube_x_position = 0;
+
+function main()
+{
+	ctx.beginPath();
+	ctx.moveTo(100, 20);
+	ctx.lineTo(200, 160);
+	ctx.quadraticCurveTo(230, 200, 250, 120);
+	ctx.bezierCurveTo(290, -40, 300, 200, 400, 150);
+	ctx.lineTo(500, 90);
+	ctx.lineWidth = 5;
+	ctx.strokeStyle = 'blue';
+	ctx.stroke();
+
+	ctx.fillRect(cube_x_position, 0, canvasHolder.width, canvasHolder.height);
+
+	if(cube_x_position < canvasHolder.width)
+	{
+		cube_x_position += 1;
+	}
+
+}
