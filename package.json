@@ -4,12 +4,22 @@
   "description": "Scribble logos",
   "main": "index.js",
   "scripts": {
-    "start": "http-server",
+    "start": "http-server && webpack --config webpack.config.js",
+    "build": "webpack",
     "test": "test"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "gsap": "^1.20.2"
+    "css-loader": "^0.28.4",
+    "file-loader": "^0.11.2",
+    "gsap": "^1.20.2",
+    "jquery": "^3.2.1",
+    "lodash": "^4.17.4",
+    "style-loader": "^0.18.2",
+    "webpack": "^3.4.1"
+  },
+  "dependencies": {
+    "lodash": "^4.17.4"
   }
 }

@@ -1,3 +1,12 @@
+require('file-loader?name=[name].[ext]!./index.html');
+
+// Style
+import './main.css'
+
+// JS vendor deps
+// import 
+
+
 let box = document.getElementById('canvas');
 var ctx = box.getContext('2d');
 
@@ -5,6 +14,7 @@ let boxWidth = 300;
 let boxHeight = 300;
 let quantity = 3; //number of dots
 let duration = 0.001;  //duration (in seconds)
+let curveComplexity = 20; // number of points to draw curve from
 
 box.className = 'box';
 
@@ -13,7 +23,7 @@ ctx.canvas.height = boxHeight;
 
 document.body.appendChild(box);
 
-var points = new Array(30);
+var points = new Array(curveComplexity);
 
 function getRandomArbitrary(min, max) {
   return Math.random() * (max - min) + min;
@@ -57,8 +67,29 @@ for (var i = 0; i < points.length; i++) {
 // curve through the last two points
 // ctx.quadraticCurveTo(points[i].x, points[i].y, points[i+1].x,points[i+1].y);
 // ctx.linewidth = 100;
+// ctx.strokeStyle = '#000';
+// ctx.beginPath();
+// ctx.moveTo(100, 250);
+// ctx.bezierCurveTo(150, 100, 350, 100, 400, 250);
+// ctx.stroke();
+
+ctx.linewidth = 100;
 ctx.strokeStyle = '#000';
 ctx.beginPath();
-ctx.moveTo(100, 250);
-ctx.bezierCurveTo(150, 100, 350, 100, 400, 250);
+
+// move to the first point
+ctx.moveTo(points[0].x, points[0].y);
+
+
+for (i = 1; i < points.length - 2; i ++)
+{
+    var xc = (points[i].x + points[i + 1].x) / 2;
+    var yc = (points[i].y + points[i + 1].y) / 2;
+    ctx.quadraticCurveTo(points[i].x, points[i].y, xc, yc);
+}
+// curve through the last two points
+ctx.quadraticCurveTo(points[i].x, points[i].y, points[i+1].x,points[i+1].y);
+
 ctx.stroke();
+
+
