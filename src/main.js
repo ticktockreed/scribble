@@ -10,7 +10,7 @@ let boxWidth = 300;
 let boxHeight = 300;
 let quantity = 3; //number of dots
 let duration = 0.001;  //duration (in seconds)
-let curveComplexity = 5; // number of points to draw curve from
+let curveComplexity = 30; // number of points to draw curve from
 
 // Set up the canvas
 let box = document.getElementById('canvas');
@@ -85,35 +85,35 @@ ctx.stroke();
 
 
 
-    var startPoint={x:50,y:150};
-    var controlPoint={x:125,y:20};
-    var endPoint={x:200,y:150};
+    // var startPoint={x:50,y:150};
+    // var controlPoint={x:125,y:20};
+    // var endPoint={x:200,y:150};
 
-    ctx.beginPath();
-    ctx.moveTo(startPoint.x,startPoint.y);
-    ctx.quadraticCurveTo(controlPoint.x,controlPoint.y,endPoint.x,endPoint.y);
-    ctx.stroke();
+    // ctx.beginPath();
+    // ctx.moveTo(startPoint.x,startPoint.y);
+    // ctx.quadraticCurveTo(controlPoint.x,controlPoint.y,endPoint.x,endPoint.y);
+    // ctx.stroke();
 
-    function setPoint(startPoint, controlPoint,endPoint, index) {
-        var point = getQuadraticBezierXYatT(startPoint,controlPoint,endPoint,index/100);
-        ctx.beginPath();
-        ctx.arc(point.x,point.y,3,0,Math.PI*2);
-        ctx.closePath();
-        ctx.fillStyle = 'rgba(255, 165, 0, 0.1)';
-        ctx.fill();
-    }
+    // function setPoint(startPoint, controlPoint,endPoint, index) {
+    //     var point = getQuadraticBezierXYatT(startPoint,controlPoint,endPoint,index/100);
+    //     ctx.beginPath();
+    //     ctx.arc(point.x,point.y,3,0,Math.PI*2);
+    //     ctx.closePath();
+    //     ctx.fillStyle = 'rgba(255, 165, 0, 0.1)';
+    //     ctx.fill();
+    // }
 
-    // draw the points
-    for(var t=0;t<101;t+=1) {
-    //     setTimeout(function(y) {
-            // console.log(y);
-            setPoint(startPoint, controlPoint, endPoint, t);
-            // debugger;
-    //     }, t * 3, t );
-    }
+    // // draw the points
+    // for(var t=0;t<101;t+=1) {
+    // //     setTimeout(function(y) {
+    //         // console.log(y);
+    //         setPoint(startPoint, controlPoint, endPoint, t);
+    //         // debugger;
+    // //     }, t * 3, t );
+    // }
 
-    function getQuadraticBezierXYatT(startPt,controlPt,endPt,T) {
-        var x = Math.pow(1-T,2) * startPt.x + 2 * (1-T) * T * controlPt.x + Math.pow(T,2) * endPt.x; 
-        var y = Math.pow(1-T,2) * startPt.y + 2 * (1-T) * T * controlPt.y + Math.pow(T,2) * endPt.y; 
-        return( {x:x,y:y} );
-    }
+    // function getQuadraticBezierXYatT(startPt,controlPt,endPt,T) {
+    //     var x = Math.pow(1-T,2) * startPt.x + 2 * (1-T) * T * controlPt.x + Math.pow(T,2) * endPt.x; 
+    //     var y = Math.pow(1-T,2) * startPt.y + 2 * (1-T) * T * controlPt.y + Math.pow(T,2) * endPt.y; 
+    //     return( {x:x,y:y} );
+    // }
